@@ -1,0 +1,833 @@
+/* Owner screens: dashboard, ledger, tenants, more, locked previews. */
+.amount-sm {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.utr-box {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--fill-3);
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--label-2);
+}
+.utr-box b {
+  color: var(--label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Dashboard hero: collected vs due this month */
+.collect-hero {
+  background:
+    radial-gradient(110% 90% at 100% 0%, color-mix(in srgb, var(--green) 20%, transparent), transparent 58%),
+    radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+    var(--bg-elevated);
+  box-shadow: var(--card-shadow);
+}
+.collect-hero .k {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--label-2);
+}
+.collect-hero .of {
+  font-size: 17px;
+  color: var(--label-2);
+  font-weight: 500;
+  margin-left: 6px;
+}
+.collect-hero .meter {
+  height: 12px;
+  border-radius: 6px;
+  margin-top: 14px;
+}
+.collect-hero .meter > span {
+  border-radius: 6px;
+}
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--label-2);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.stat-btn {
+  text-align: left;
+  width: 100%;
+  transition: transform 0.3s var(--spring);
+}
+.stat-btn:active {
+  transform: scale(0.97);
+}
+.stat .s {
+  font-size: 13px;
+  color: var(--label-2);
+  margin-top: 1px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.row-actions .circle-btn {
+  width: 36px;
+  height: 36px;
+  color: var(--accent);
+}
+.row-actions .circle-btn svg {
+  width: 19px;
+  height: 19px;
+}
+.wa {
+  color: #1faa53 !important;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 var(--gap) 18px;
+}
+.chip.danger {
+  color: var(--red-text);
+}
+.chip.danger[aria-pressed="true"] {
+  background: var(--red-fill);
+  color: #fff;
+}
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.summary-strip .stat {
+  padding: 12px 14px;
+  border-radius: 18px;
+}
+.summary-strip .stat .v {
+  font-size: clamp(16px, 5.2vw, 19px);
+  line-height: 24px;
+}
+
+.profile-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.profile-head .avatar.lg {
+  flex: none;
+}
+
+/* Locked previews */
+.lock-hero {
+  background:
+    radial-gradient(
+      120% 100% at 100% 0%,
+      color-mix(in srgb, var(--tone, var(--accent)) 22%, transparent),
+      transparent 60%
+    ),
+    var(--bg-elevated);
+  box-shadow: var(--card-shadow);
+}
+.lock-hero .lk-ic {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--tone, var(--accent));
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.4),
+    0 8px 20px color-mix(in srgb, var(--tone, var(--accent)) 35%, transparent);
+}
+.lock-hero .lk-ic svg {
+  width: 30px;
+  height: 30px;
+}
+.bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bullets li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  line-height: 20px;
+  padding: 6px 0;
+}
+.bullets li svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--green);
+  margin-top: 1px;
+}
+.preview-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+.locked {
+  border-radius: var(--r-xl);
+}
+
+.receipt {
+  background: var(--bg-elevated);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+}
+.receipt .rc-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 15px;
+  padding: 5px 0;
+}
+.receipt .rc-line span:first-child {
+  color: var(--label-2);
+}
+.receipt hr {
+  border: 0;
+  border-top: 1px dashed var(--separator);
+  margin: 10px 0;
+}
+
+.meter-face {
+  border-radius: 20px;
+  padding: 22px 18px;
+  text-align: center;
+  color: #e8f5d0;
+  background: linear-gradient(160deg, #2b2f2a, #161815);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    var(--card-shadow);
+}
+.meter-face .digits {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 36px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+.meter-face .digits b {
+  color: #ff8f70;
+  font-weight: 600;
+}
+.meter-face .scan {
+  margin: 10px auto 0;
+  width: 70%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7cff9a, transparent);
+  opacity: 0.8;
+}
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.flow-step {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.flow-link {
+  width: 2px;
+  height: 18px;
+  margin-left: 15px;
+  background: var(--separator);
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 140px;
+  padding: 4px 2px 0;
+}
+.bars .b {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bars .pair {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+.bars .pair i {
+  display: block;
+  width: 40%;
+  max-width: 14px;
+  border-radius: 4px 4px 2px 2px;
+}
+.bars .lbl {
+  font-size: 11px;
+  color: var(--label-2);
+}
+
+/* Reports preview series colours (validated for CVD and contrast in both modes). */
+:root {
+  --series-1: #0a7aff;
+  --series-2: #c45a00;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --series-1: #0a84ff;
+    --series-2: #d06a00;
+  }
+}
+:root[data-theme="dark"] {
+  --series-1: #0a84ff;
+  --series-2: #d06a00;
+}
+
+/* ---------- Payment confirmation: the daily heartbeat ---------- */
+.await-card {
+  position: relative;
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--purple) 12%, transparent), transparent 55%), var(--bg-elevated);
+  border-radius: var(--r-xl);
+  padding: 14px 14px 14px;
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--purple) 45%, transparent),
+    var(--card-shadow);
+  transition:
+    transform 0.35s var(--spring),
+    opacity 0.35s var(--ease);
+}
+.await-card + .await-card {
+  margin-top: 10px;
+}
+.await-card.is-selected {
+  box-shadow:
+    inset 0 0 0 2.5px var(--purple),
+    var(--card-shadow);
+}
+.await-card.is-ok {
+  box-shadow:
+    inset 0 0 0 2px var(--green),
+    var(--card-shadow);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--green) 16%, transparent), transparent 60%), var(--bg-elevated);
+}
+.await-card.is-no {
+  opacity: 0.6;
+}
+.await-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.await-who {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+.await-who .title {
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.await-who .sub {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--label-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.await-tag {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 12px;
+  background: var(--purple-fill);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.await-tag svg {
+  width: 13px;
+  height: 13px;
+}
+.await-amount {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 2px 10px;
+}
+.await-amount .money {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 36px;
+}
+.utr-box.has-utr {
+  background: color-mix(in srgb, var(--purple) 10%, var(--fill-3));
+}
+.await-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.await-actions .btn {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+/* "Not received" keeps its words on one line; Confirm takes the rest of the row. */
+.await-actions .btn:first-child {
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0 16px;
+}
+@media (max-width: 360px) {
+  .await-actions .btn {
+    font-size: 15px;
+  }
+  .await-actions .btn:first-child {
+    padding: 0 12px;
+  }
+}
+.await-actions .btn.icon-only {
+  flex: 0 0 44px;
+  padding: 0;
+}
+.await-actions .btn.grow-2 {
+  flex: 1 1 0;
+}
+.await-done {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--label-2);
+}
+.await-done.ok {
+  color: var(--green-text);
+}
+.await-tick {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  animation: pop-in 0.6s var(--spring) both;
+}
+.await-tick svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2.6;
+}
+@keyframes pop-in {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+.select-box {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 50%;
+  margin: 5px;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 2px var(--label-3);
+  color: #fff;
+  transition: background-color 0.2s;
+}
+.select-box[aria-checked="true"] {
+  background: var(--purple);
+  box-shadow: none;
+}
+.select-box svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.6;
+}
+.await-inline {
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--purple) 45%, transparent),
+    var(--card-shadow);
+}
+
+/* Sticky bulk bar on Rent (multi-select confirm) */
+.bulk-bar {
+  position: fixed;
+  z-index: 40;
+  left: 12px;
+  right: 12px;
+  bottom: calc(var(--tabbar-h) + var(--safe-b) + 18px);
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 28px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 0 0 0.5px var(--glass-edge);
+  animation: rise 0.45s var(--spring) both;
+}
+.bulk-bar .grow {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  line-height: 19px;
+}
+.bulk-bar .btn {
+  width: auto;
+  padding: 0 18px;
+}
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+/* ---------- Owner Home: Action Inbox ---------- */
+.inbox-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.count-pill {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 12px;
+  background: var(--red-fill);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+}
+.inbox-list {
+  margin-top: 10px;
+}
+.inbox-row {
+  padding: 0 !important;
+}
+.inbox-row > .row {
+  flex: 1;
+  min-width: 0;
+}
+.inbox-row .row-actions {
+  padding-right: 10px;
+  gap: 6px;
+}
+.mini-btn {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 17px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--accent-tint);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  white-space: nowrap;
+  transition: transform 0.25s var(--spring);
+}
+.mini-btn:active {
+  transform: scale(0.94);
+}
+.mini-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.mini-btn.wa-btn {
+  background: color-mix(in srgb, #25d366 18%, transparent);
+  color: #128a43;
+}
+/* On phones the WhatsApp button is icon-only so the tenant's name and amount stay readable. */
+@media (max-width: 430px) {
+  .inbox-row .mini-btn.wa-btn {
+    width: 34px;
+    padding: 0;
+    justify-content: center;
+  }
+  .inbox-row .mini-btn.wa-btn .mini-label {
+    display: none;
+  }
+  .inbox-row .mini-btn.wa-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mini-btn.wa-btn {
+    color: #4ade80;
+  }
+}
+:root[data-theme="dark"] .mini-btn.wa-btn {
+  color: #4ade80;
+}
+.caught-up {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.caught-up .cu-ic {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: var(--green-tint);
+  color: var(--green-text);
+}
+.caught-up .cu-ic svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Per-property collection: one segment per unit */
+.prop-progress {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 0.5px solid var(--separator);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.prop-line .between {
+  font-size: 14px;
+  line-height: 18px;
+}
+.prop-line .between b {
+  font-weight: 600;
+  color: var(--label);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prop-line .between span {
+  color: var(--label-2);
+  flex: none;
+}
+.segs {
+  display: flex;
+  gap: 3px;
+  margin-top: 6px;
+}
+.segs i {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--fill-2);
+  transform-origin: left;
+  animation: seg-in 0.6s var(--spring) both;
+}
+.segs i.paid {
+  background: var(--green);
+}
+.segs i.awaiting {
+  background: var(--purple);
+}
+.segs i.partial {
+  background: var(--orange);
+}
+.segs i.overdue {
+  background: var(--red);
+}
+@keyframes seg-in {
+  from {
+    transform: scaleX(0.2);
+    opacity: 0;
+  }
+}
+
+/* Floating "Collect" button above the tab bar */
+.fab {
+  position: fixed;
+  z-index: 30;
+  right: calc(16px + var(--safe-r));
+  bottom: calc(var(--tabbar-h) + var(--safe-b) + 22px);
+  height: 52px;
+  padding: 0 20px 0 16px;
+  border-radius: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow:
+    0 10px 26px color-mix(in srgb, var(--accent) 40%, transparent),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.35);
+  animation: rise 0.5s var(--spring) 0.2s both;
+  transition: transform 0.3s var(--spring);
+}
+.fab:active {
+  transform: scale(0.94);
+}
+.fab svg {
+  width: 22px;
+  height: 22px;
+}
+@media (min-width: 760px) {
+  .fab {
+    right: calc(50% - 300px);
+  }
+}
+
+/* First-run guided path */
+.setup-card {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+    var(--bg-elevated);
+}
+.setup-steps {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.setup-steps li + li {
+  border-top: 0.5px solid var(--separator);
+}
+.setup-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 50px;
+  text-align: left;
+  padding: 6px 0;
+}
+.setup-step .n {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--fill-2);
+  color: var(--label-2);
+}
+.setup-step.done .n {
+  background: var(--green);
+  color: #fff;
+}
+.setup-step.next .n {
+  background: var(--accent-fill);
+  color: #fff;
+}
+.setup-step .n svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.6;
+}
+.setup-step .grow {
+  flex: 1;
+  min-width: 0;
+}
+.setup-step .grow b {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 21px;
+}
+.setup-step.done .grow b {
+  color: var(--label-2);
+  text-decoration: line-through;
+  text-decoration-color: var(--label-3);
+}
+.setup-step .grow span {
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--label-2);
+}
+.setup-step .chev {
+  width: 8px;
+  height: 14px;
+  color: var(--label-3);
+}
+.progress-dots {
+  display: flex;
+  gap: 4px;
+}
+.progress-dots i {
+  width: 18px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--fill);
+}
+.progress-dots i.on {
+  background: var(--accent);
+}
+
+/* More: utility hub search */
+.hub-search {
+  margin: 0 var(--gap) 20px;
+}
+.chip.purple {
+  color: var(--purple-text);
+}
+.chip.purple[aria-pressed="true"] {
+  background: var(--purple-fill);
+  color: #fff;
+}
+.banner .btn.sm {
+  flex: none;
+}

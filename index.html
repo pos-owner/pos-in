@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>pOS · Rent, tenants and requests</title>
+    <meta
+      name="description"
+      content="pOS helps owners in India track rent, tenants, UPI payments, maintenance and expenses from one installable app."
+    />
+    <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="pOS" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!-- Link previews (WhatsApp, Telegram, Slack). WhatsApp needs an absolute og:image URL: `npm run build` rewrites
+         it from the APP_URL environment variable (see docs/configuration.md). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="pOS" />
+    <meta property="og:title" content="pOS · Rent, tenants and UPI payments" />
+    <meta
+      property="og:description"
+      content="Track rent, confirm UPI payments, handle repairs and share receipts. For landlords, staff and tenants in India."
+    />
+    <meta property="og:image" content="/img/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="pOS app icon beside an apartment building and a phone showing rent paid" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Launch screen: painted before any JavaScript; same markup and colours as Splash in App.tsx. -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #f2f2f7;
+      }
+      @media (prefers-color-scheme: dark) {
+        html,
+        body {
+          background: #000;
+        }
+      }
+      .splash {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+      }
+      .splash .app-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 22.5%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="splash" aria-busy="true" aria-label="Loading pOS">
+        <img src="/icons/icon.svg" alt="" class="app-icon" width="76" height="76" />
+      </div>
+    </div>
+    <noscript>pOS needs JavaScript to run.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

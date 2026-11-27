@@ -1,0 +1,257 @@
+/* ---------- app shell ---------- */
+#root {
+  min-height: 100dvh;
+}
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  position: relative;
+}
+.page {
+  min-height: 100dvh;
+  padding: calc(var(--safe-t) + 52px) calc(var(--safe-r)) calc(var(--safe-b) + var(--tabbar-h) + 40px)
+    calc(var(--safe-l));
+}
+.page.no-tabs {
+  padding-bottom: calc(var(--safe-b) + 32px);
+}
+/* No large title: the compact bar is always shown, so content starts clear of it (and the bar stays clear until scrolled). */
+.page.hide-large {
+  padding-top: calc(var(--safe-t) + 68px);
+}
+.page.push {
+  animation: push-in 0.42s var(--spring) both;
+}
+.page.fade {
+  animation: fade-in 0.22s ease-out both;
+}
+@keyframes push-in {
+  from {
+    transform: translate3d(28%, 0, 0);
+    opacity: 0.4;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+/* Navigation bar: transparent over the large title, glass once scrolled. */
+.navbar {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(var(--safe-t) + 6px) calc(var(--safe-r) + 12px) 6px calc(var(--safe-l) + 12px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.navbar > * {
+  pointer-events: auto;
+}
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  border-bottom: 0.5px solid var(--separator);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.navbar.scrolled::before {
+  opacity: 1;
+}
+.navbar .nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translate3d(0, 4px, 0);
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s var(--ease);
+  max-width: 60vw;
+}
+.navbar.scrolled .nav-title,
+.navbar.always .nav-title {
+  opacity: 1;
+  transform: none;
+}
+.navbar .nav-left {
+  display: flex;
+  gap: 8px;
+  justify-self: start;
+}
+.navbar .nav-right {
+  display: flex;
+  gap: 8px;
+  justify-self: end;
+}
+
+/* Liquid-glass controls */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  box-shadow:
+    inset 0 0.5px 0 var(--glass-edge),
+    inset 0 0 0 0.5px var(--glass-rim),
+    var(--glass-shadow);
+}
+.circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--label);
+  transition:
+    transform 0.3s var(--spring),
+    background-color 0.2s;
+}
+.circle-btn:active {
+  transform: scale(0.9);
+}
+.circle-btn.accent {
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.4),
+    var(--glass-shadow);
+}
+.circle-btn.plain {
+  background: var(--fill-2);
+  box-shadow: none;
+}
+.circle-btn svg {
+  width: 22px;
+  height: 22px;
+}
+@media (max-width: 380px) {
+  .navbar .nav-left,
+  .navbar .nav-right {
+    gap: 4px;
+  }
+  .navbar .circle-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .navbar .circle-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+.pill-btn {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--label);
+  transition: transform 0.3s var(--spring);
+}
+.pill-btn:active {
+  transform: scale(0.94);
+}
+
+.large-title {
+  padding: 4px calc(var(--gap) + 4px) 10px;
+}
+.large-title .eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-2);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 1px;
+}
+
+/* Floating capsule tab bar */
+.tabbar {
+  position: fixed;
+  z-index: 40;
+  left: 50%;
+  bottom: calc(var(--safe-b) + 10px);
+  transform: translateX(-50%);
+  width: min(calc(100% - 28px - var(--safe-l) - var(--safe-r)), 480px);
+  height: var(--tabbar-h);
+  border-radius: 32px;
+  padding: 4px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+.tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 28px;
+  color: var(--label);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    color 0.2s,
+    transform 0.35s var(--spring);
+}
+.tab svg {
+  width: 25px;
+  height: 25px;
+}
+.tab:active {
+  transform: scale(0.9);
+}
+.tab[aria-current="page"] {
+  color: var(--accent);
+}
+.tab[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: var(--fill-2);
+  z-index: -1;
+  animation: lens 0.4s var(--spring);
+}
+@keyframes lens {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+}
+.tab .badge {
+  position: absolute;
+  top: 5px;
+  left: calc(50% + 6px);
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--red-fill);
+  color: #fff;
+  font-size: 11px;
+  line-height: 17px;
+  text-align: center;
+  font-weight: 600;
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.wrangler/
+.netlify/
+package-lock.json
+drizzle/
+migrations/
+src/i18n/
+*.md

@@ -1,0 +1,279 @@
+/* Receipts, meter readings, reports and automations. Tokens come from global.css. */
+
+/* Meter readings */
+.scan-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-xl, 22px);
+  background: #121411;
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+}
+.scan-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.scan-hero .scan-line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  top: 20%;
+  background: linear-gradient(90deg, transparent, #7cff9a, transparent);
+  box-shadow: 0 0 12px #7cff9a;
+  animation: scanline 1.6s var(--ease, ease-in-out) infinite alternate;
+}
+@keyframes scanline {
+  to {
+    transform: translate3d(0, 220%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scan-hero .scan-line {
+    animation: none;
+    top: 50%;
+  }
+}
+.scan-hero .scan-empty {
+  color: #c9d4bd;
+  text-align: center;
+  padding: 24px;
+}
+.scan-hero .scan-empty svg {
+  width: 40px;
+  height: 40px;
+  opacity: 0.85;
+}
+.scan-hero .scan-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.reading-input input {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0.06em;
+}
+.confidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.confidence i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.thumb-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex: none;
+  background: var(--fill);
+}
+.calc {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.calc .stat {
+  padding: 12px;
+  border-radius: 16px;
+}
+.calc .stat .v {
+  font-size: 19px;
+  line-height: 24px;
+}
+
+/* Reports */
+.chart {
+  position: relative;
+}
+.chart .grid-y {
+  position: absolute;
+  inset: 0 0 22px 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.chart .grid-y span {
+  /* Fade only the gridline; the axis label inside it stays readable. */
+  border-top: 1px solid color-mix(in srgb, var(--separator) 60%, transparent);
+  height: 0;
+  position: relative;
+}
+.chart .grid-y em {
+  position: absolute;
+  left: -34px;
+  top: -8px;
+  font-style: normal;
+  font-size: 11px;
+  color: var(--label-2);
+  width: 30px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.chart .bars {
+  margin-left: 34px;
+  height: 160px;
+}
+.chart .bars .b {
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.chart .bars .b[aria-pressed="true"] {
+  background: var(--fill-3);
+}
+.chart .bars .pair i {
+  transition: transform 0.4s var(--spring, ease);
+  transform-origin: bottom;
+}
+.chart-tip {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--fill-3);
+  font-size: 14px;
+  margin-top: 12px;
+}
+.chart-tip b {
+  font-variant-numeric: tabular-nums;
+}
+.hbar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--fill);
+  overflow: hidden;
+  margin-top: 6px;
+}
+.hbar > span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--series-2);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+  transition: transform 0.5s var(--spring, ease);
+}
+.hbar.accent > span {
+  background: var(--series-1);
+}
+.kpis {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+.kpis .stat .v.pos {
+  color: var(--green-text, var(--green));
+}
+.kpis .stat .v.neg {
+  color: var(--red-text, var(--red));
+}
+.occ-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  margin-top: 10px;
+}
+.occ-strip span {
+  height: 28px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--series-1) calc(var(--p, 0) * 100%), var(--fill));
+}
+.occ-strip-l {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 10.5px;
+  color: var(--label-2);
+  text-align: center;
+}
+
+/* Automations */
+.flow-step.off {
+  opacity: 0.45;
+}
+.flow-step .icon-sq {
+  flex: none;
+}
+.flow-link.on {
+  background: var(--green);
+}
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.stepper button {
+  width: 34px;
+  height: 34px;
+  border-radius: 17px;
+  background: var(--fill);
+  color: var(--label);
+  font-size: 19px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+.stepper button:disabled {
+  opacity: 0.35;
+}
+.stepper b {
+  min-width: 28px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.chart .bars button.b {
+  padding: 4px 0 0;
+}
+.flow-hero {
+  padding: 18px 16px;
+}
+.flow-hero .flow-link {
+  transition: background 0.3s;
+}
+.run-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  display: inline-block;
+}
+
+/* Sanity-check warning on a meter reading (unusually high usage). */
+.warn-card {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--orange-tint);
+  color: var(--orange-text);
+  font-size: 15px;
+  line-height: 1.35;
+}
+.warn-card svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}

@@ -1,0 +1,4 @@
+# pOS is a private app: the sign-in page may be indexed, nothing behind it can be.
+User-agent: *
+Allow: /
+Disallow: /api/

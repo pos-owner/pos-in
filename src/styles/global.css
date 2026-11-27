@@ -1,0 +1,10 @@
+/*
+ * pOS design system, inspired by iOS. Colours are tokens; light and dark follow the phone unless chosen in Settings.
+ * The partials are imported in cascade order: later files may override earlier ones.
+ */
+@import "@fontsource-variable/inter/wght.css";
+@import "./base.css";
+@import "./shell.css";
+@import "./components.css";
+@import "./common.css";
+@import "./display.css";

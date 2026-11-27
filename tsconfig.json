@@ -1,0 +1,21 @@
+{
+  // One project for the PWA (src/), the Worker (worker/), shared code, tests and tool configs.
+  // `npm run check` type-checks everything; Vite, Wrangler (esbuild) and Node's type stripping do the compiling.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "jsx": "react-jsx",
+    "types": ["node"],
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src", "worker", "shared", "tests", "vite.config.ts", "drizzle.d1.config.ts"]
+}

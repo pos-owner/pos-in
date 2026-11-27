@@ -1,0 +1,165 @@
+/* ---------- small helpers for the rental-management screens ---------- */
+.btn.plain {
+  background: transparent;
+  color: var(--accent);
+}
+.link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+.sub-head {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--label-2);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 18px 4px 6px;
+}
+.unread-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+.bell-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--red-fill);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.qr-card {
+  background: var(--bg-elevated);
+  border-radius: 18px;
+  padding: 12px;
+  text-align: center;
+  break-inside: avoid;
+}
+.qr-card .qr {
+  max-width: 140px;
+  margin: 0 auto 8px;
+}
+@media print {
+  .navbar,
+  .tabbar,
+  .no-print {
+    display: none !important;
+  }
+  .qr-card {
+    border: 1px solid #ccc;
+  }
+}
+
+/* ---------- Offline outbox: /outbox, the home-screen button and the note on entry screens ---------- */
+.outbox-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-elevated);
+  border-radius: var(--r-xl);
+  box-shadow: var(--card-shadow);
+}
+.outbox-summary .grow {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.outbox-summary .sub {
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--label-2);
+}
+.outbox-row {
+  align-items: flex-start;
+}
+.outbox-row .icon-sq {
+  margin-top: 2px;
+}
+.outbox-row .title {
+  white-space: normal;
+}
+.outbox-err {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--orange-text);
+}
+.outbox-err.bad {
+  color: var(--red-text);
+}
+.outbox-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.outbox-discard {
+  color: var(--red-text);
+}
+.outbox-badge {
+  background: var(--accent);
+}
+.outbox-badge.bad {
+  background: var(--red);
+}
+.outbox-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--r-xl);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-elevated));
+  color: var(--label);
+  text-align: left;
+  font-size: 15px;
+  line-height: 20px;
+}
+.outbox-note.bad {
+  background: color-mix(in srgb, var(--red) 12%, var(--bg-elevated));
+}
+.outbox-note > svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--accent);
+}
+.outbox-note.bad > svg {
+  color: var(--red-text);
+}
+.outbox-note .grow {
+  flex: 1;
+  min-width: 0;
+}
+.outbox-note .chev {
+  width: 8px;
+  height: 14px;
+  color: var(--label-3);
+  flex: none;
+}
+.offline a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

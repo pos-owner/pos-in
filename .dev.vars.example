@@ -1,0 +1,4 @@
+# Optional local development values. Copy to .dev.vars.
+SIGNUPS=open
+METER_AI=off
+CRON_SECRET=local-cron-secret

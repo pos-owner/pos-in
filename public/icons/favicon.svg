@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>pOS</title>
+  <defs>
+    <linearGradient id="bg" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#1e2457"/>
+      <stop offset="0.5" stop-color="#4b2c8f"/>
+      <stop offset="1" stop-color="#ff8466"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.26" cy="0.14" r="0.72">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="house" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eee8ff"/>
+    </linearGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd67d"/>
+      <stop offset="1" stop-color="#ff9259"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#140834" flood-opacity="0.34"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#bg)"/>
+  <g transform="translate(256 262) scale(1.22) translate(-256 -260)"><path fill="url(#house)" d="M256 104c7.6 0 15 2.7 20.9 7.7l118 100.4c9.9 8.4 15.6 20.7 15.6 33.7V372c0 24.3-19.7 44-44 44H145.5c-24.3 0-44-19.7-44-44V245.8c0-13 5.7-25.3 15.6-33.7l118-100.4c5.9-5 13.3-7.7 20.9-7.7z"/><g fill="none" stroke="#3a2a78" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M206 236h100"/><path d="M206 276h100"/>
+    <path d="M214 236h22c30 0 48 17 48 40s-18 40-48 40h-22l78 74"/>
+  </g></g>
+</svg>

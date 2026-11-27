@@ -1,0 +1,136 @@
+.welcome-hero {
+  text-align: center;
+  padding: 8px 0 26px;
+}
+.welcome-hero .welcome-art {
+  display: block;
+  width: min(100%, 420px);
+  height: auto;
+  margin: -12px auto 4px;
+  animation: welcome-float 0.9s var(--spring) both;
+}
+.welcome-hero .app-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 22.5%;
+  margin: -30px auto 14px;
+  display: block;
+  position: relative;
+  box-shadow: 0 10px 24px rgba(30, 20, 70, 0.28);
+}
+@keyframes welcome-float {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-hero .welcome-art {
+    animation: none;
+  }
+}
+@media (max-height: 700px) {
+  .welcome-hero .welcome-art {
+    width: min(100%, 300px);
+  }
+}
+.welcome-hero h1 {
+  margin: 0;
+  font-size: 44px;
+  line-height: 48px;
+}
+.welcome-hero p {
+  margin: 8px auto 0;
+  max-width: 320px;
+}
+.perks {
+  display: grid;
+  gap: 14px;
+  margin: 0 4px 26px;
+}
+.perk {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.perk .icon-sq {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+}
+.perk .icon-sq svg {
+  width: 21px;
+  height: 21px;
+}
+.perk b {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+}
+.perk div > span {
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--label-2);
+}
+.notice {
+  margin-bottom: 14px;
+}
+.legal {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--label-2);
+}
+.choice {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: var(--bg-elevated);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  text-align: left;
+  transition:
+    transform 0.3s var(--spring),
+    box-shadow 0.2s;
+}
+.choice:active {
+  transform: scale(0.98);
+}
+.choice[aria-pressed="true"] {
+  box-shadow:
+    0 0 0 2px var(--accent),
+    var(--card-shadow);
+}
+.choice .grow {
+  flex: 1;
+}
+.choice b {
+  display: block;
+  font-size: 16px;
+}
+.choice .grow > span {
+  font-size: 14px;
+  color: var(--label-2);
+  line-height: 19px;
+}
+.radio {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--label-3);
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+.choice[aria-pressed="true"] .radio {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+.radio svg {
+  width: 14px;
+  height: 14px;
+}

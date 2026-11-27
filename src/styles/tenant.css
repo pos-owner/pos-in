@@ -1,0 +1,340 @@
+/* Tenant home hero: a soft accent wash that stays readable in light and dark. */
+.due-hero {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    var(--bg-elevated);
+  box-shadow: var(--card-shadow);
+}
+.due-hero.is-overdue {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--red) 20%, transparent), transparent 60%),
+    var(--bg-elevated);
+}
+.due-hero .due-k {
+  color: var(--label-2);
+}
+.due-hero .amount {
+  font-size: 48px;
+  line-height: 54px;
+}
+.pay-btn {
+  height: 56px;
+  border-radius: 28px;
+  font-size: 18px;
+}
+
+.paid-hero {
+  background: var(--bg-elevated);
+  box-shadow: var(--card-shadow);
+  padding: 28px 20px;
+}
+.paid-check {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #fff;
+  animation: pop-in 0.6s var(--spring) both;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--green) 40%, transparent);
+}
+.paid-check svg {
+  width: 34px;
+  height: 34px;
+  stroke-width: 2.6;
+}
+@keyframes pop-in {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+.pay-method {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  flex: none;
+}
+.pay-method svg {
+  width: 18px;
+  height: 18px;
+}
+.summary-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+/* Pay sheet: UPI is the hero, other ways stay secondary */
+.upi-hero .pay-btn {
+  height: 60px;
+  border-radius: 30px;
+  font-size: 19px;
+  box-shadow:
+    0 10px 24px color-mix(in srgb, var(--accent) 34%, transparent),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.35);
+}
+.qr-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  margin: 8px 0 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.qr-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.other-way {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--label-2);
+  text-decoration: underline;
+  text-decoration-color: var(--label-3);
+  text-underline-offset: 3px;
+}
+.return-card {
+  box-shadow:
+    inset 0 0 0 1.5px color-mix(in srgb, var(--green) 50%, transparent),
+    var(--card-shadow);
+  animation: return-in 0.5s var(--spring) both;
+}
+@keyframes return-in {
+  from {
+    transform: translateY(-8px) scale(0.98);
+    opacity: 0;
+  }
+}
+
+.breakdown .row {
+  min-height: 44px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 16px;
+}
+.breakdown .row.total {
+  font-weight: 600;
+  font-size: 17px;
+}
+.breakdown .row.total .money {
+  font-size: 19px;
+}
+.bd-due {
+  display: block;
+  font-size: 13px;
+  line-height: 17px;
+  font-weight: 500;
+}
+
+/* Calm waiting state after "I have paid" */
+.sent-check {
+  background: var(--purple);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--purple) 40%, transparent);
+}
+.wait-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.wait-steps i {
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--separator);
+}
+.wait-steps .ws {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.wait-steps .ws svg {
+  width: 14px;
+  height: 14px;
+}
+.wait-steps .ws.done {
+  background: var(--green-tint);
+  color: var(--green-text);
+}
+.wait-steps .ws.now {
+  background: var(--purple-tint);
+  color: var(--purple-text);
+}
+.wait-steps .ws.now svg {
+  animation: tick 2s ease-in-out infinite;
+}
+@keyframes tick {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Tenant home: confidence line and waiting card */
+.confidence {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--label-2);
+}
+.confidence svg {
+  width: 16px;
+  height: 16px;
+  color: var(--green);
+  flex: none;
+}
+.due-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+.due-facts > div {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--fill-3);
+}
+.due-facts .k {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--label-2);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.due-facts .v {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.due-facts .v.c-red {
+  color: var(--red-text);
+}
+
+/* Multi-month payments: pick the last month to pay; every month before it is included. */
+.month-pick .month-row {
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.2s var(--ease);
+}
+.month-pick .month-row .end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.month-pick .mp-tick {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 1.5px var(--label-3);
+  color: #fff;
+  transition:
+    background-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+.month-pick .mp-tick svg {
+  width: 14px;
+  height: 14px;
+}
+.month-pick .month-row.on .mp-tick {
+  background: var(--accent);
+  box-shadow: none;
+}
+.month-pick .month-row.on {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.month-pick .month-row.end-pick {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* "Paid ahead": upcoming months that already have money on them. */
+.ahead-card {
+  background:
+    radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--indigo) 18%, transparent), transparent 62%),
+    var(--bg-elevated);
+  box-shadow: var(--card-shadow), var(--card-edge);
+  border-radius: var(--r-xl);
+  padding: 16px 18px;
+}
+.ahead-card .ahead-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ahead-card .ahead-ic {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--indigo);
+  color: #fff;
+}
+.ahead-card .ahead-ic svg {
+  width: 22px;
+  height: 22px;
+}
+.ahead-months {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.ahead-months .am {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--green-tint);
+  color: var(--green-text);
+}
+.ahead-months .am.part {
+  background: var(--orange-tint);
+  color: var(--orange-text);
+}
+.ahead-months .am.wait {
+  background: var(--purple-tint);
+  color: var(--purple-text);
+}
+.pay-ahead-link {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}

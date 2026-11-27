@@ -1,0 +1,568 @@
+/* Public receipt verification (/verify, /verify/:code). A standalone page: no tab bar, works signed out. */
+
+.verify-page {
+  --v-paper: #ffffff;
+  --v-sheet: var(--bg);
+  --v-brand: #4b2c8f;
+  --v-brand-2: #ff8466;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--safe-t) + 10px) calc(var(--safe-r) + 16px) calc(var(--safe-b) + 20px) calc(var(--safe-l) + 16px);
+  background:
+    radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--v-brand) 16%, transparent), transparent 70%),
+    var(--v-sheet);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .verify-page {
+    --v-paper: #1f1f23;
+    --v-brand: #9b7bff;
+  }
+}
+:root[data-theme="dark"] .verify-page {
+  --v-paper: #1f1f23;
+  --v-brand: #9b7bff;
+}
+
+.verify-top {
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0 14px;
+}
+.verify-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--label);
+  border-radius: 12px;
+}
+.verify-brand img {
+  border-radius: 9px;
+  display: block;
+}
+.verify-brand span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.verify-brand b {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--v-brand);
+}
+.verify-brand small {
+  font-size: 12.5px;
+  color: var(--label-2);
+}
+.verify-open {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  box-shadow: var(--card-shadow);
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.verify-main {
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  outline: none;
+}
+
+/* ---------- Verdict card ---------- */
+.verify-card {
+  background: var(--bg-elevated);
+  border-radius: var(--r-xl);
+  box-shadow: var(--card-shadow);
+  padding: 28px 22px 22px;
+  text-align: center;
+  animation: verify-in 0.45s var(--spring) both;
+}
+.verify-card h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 4px 0 8px;
+  outline: none;
+}
+.verify-card > p {
+  margin: 0 auto;
+  max-width: 44ch;
+  color: var(--label-2);
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+.verify-kicker {
+  margin: 14px 0 0 !important;
+  font-size: 12.5px !important;
+  font-weight: 700;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase;
+}
+.verdict.genuine .verify-kicker {
+  color: var(--green-text) !important;
+}
+.verdict.voided .verify-kicker {
+  color: var(--orange-text) !important;
+}
+.verdict.invalid .verify-kicker {
+  color: var(--red-text) !important;
+}
+.verify-checked {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px !important;
+  font-size: 13px !important;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--fill-3);
+}
+.verify-checked svg {
+  width: 15px;
+  height: 15px;
+}
+
+.verify-seal {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.verify-seal svg {
+  width: 38px;
+  height: 38px;
+  stroke-width: 2;
+}
+.verify-seal::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 2px dashed currentColor;
+  opacity: 0.35;
+  animation: verify-spin 18s linear infinite;
+}
+.verify-seal.genuine {
+  color: var(--green-text);
+  background: var(--green-tint);
+}
+.verify-seal.voided {
+  color: var(--orange-text);
+  background: var(--orange-tint);
+}
+.verify-seal.invalid {
+  color: var(--red-text);
+  background: var(--red-tint);
+}
+.verify-seal.neutral {
+  color: var(--v-brand);
+  background: color-mix(in srgb, var(--v-brand) 12%, transparent);
+}
+.verify-seal.neutral::after {
+  display: none;
+}
+
+.verify-h2 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--label-2);
+  margin: 6px 4px 10px;
+}
+
+/* ---------- The cut-edge slip ---------- */
+.slip-wrap {
+  filter: drop-shadow(0 8px 18px rgba(20, 8, 52, 0.12)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+  animation: verify-in 0.55s 0.05s var(--spring) both;
+}
+.slip {
+  --tooth: 14px;
+  position: relative;
+  background: var(--v-paper);
+  padding: calc(var(--tooth) / 2 + 18px) 22px calc(var(--tooth) / 2 + 14px);
+  /* Zigzag (torn) top and bottom edges. */
+  -webkit-mask:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% 0 / var(--tooth) 51% repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% 100% / var(--tooth) 51% repeat-x;
+  mask:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% 0 / var(--tooth) 51% repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% 100% / var(--tooth) 51% repeat-x;
+}
+.slip.is-void::before {
+  content: "VOID";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 110px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--red);
+  opacity: 0.09;
+  transform: rotate(-24deg);
+  pointer-events: none;
+}
+.slip-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.slip-head img {
+  border-radius: 8px;
+}
+.slip-head > div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.slip-head b {
+  color: var(--v-brand);
+  font-size: 16px;
+}
+.slip-head small {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--label-2);
+}
+.slip-no {
+  margin-left: auto;
+  text-align: right;
+  align-items: flex-end;
+}
+.slip-no b {
+  color: var(--label) !important;
+  font-size: 14px !important;
+}
+.slip-no small {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+}
+.slip-perf {
+  position: relative;
+  margin: 16px -22px;
+  border-top: 1.5px dashed var(--separator);
+}
+.slip-perf::before,
+.slip-perf::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--v-sheet);
+}
+.slip-perf::before {
+  left: -8px;
+}
+.slip-perf::after {
+  right: -8px;
+}
+.slip-amount {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.slip-amount small {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--label-2);
+}
+.slip-amount strong {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+.is-void .slip-amount strong {
+  color: var(--label-2);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.slip-stamp {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+}
+.slip-stamp.paid {
+  color: var(--green-text);
+  background: var(--green-tint);
+}
+.slip-stamp.void {
+  color: var(--red-text);
+  background: var(--red-tint);
+}
+.slip-rows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.slip-rows > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.slip-rows dt {
+  color: var(--label-2);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.slip-rows dd {
+  margin: 0;
+  text-align: right;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.slip-foot {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--label-2);
+}
+.slip-foot svg {
+  width: 16px;
+  height: 16px;
+  color: var(--green-text);
+}
+.is-void .slip-foot svg {
+  color: var(--orange-text);
+}
+
+/* ---------- Checklist, steps, actions ---------- */
+.verify-match {
+  margin-top: 18px;
+}
+.verify-match ul,
+.verify-how ol {
+  list-style: none;
+  margin: 0;
+  padding: 6px 16px;
+  background: var(--bg-elevated);
+  border-radius: var(--r-lg);
+  box-shadow: var(--card-shadow);
+}
+.verify-match li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 0;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.verify-match li + li,
+.verify-how li + li {
+  border-top: 0.5px solid var(--separator);
+}
+.verify-match li svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--green-text);
+  stroke-width: 2.4;
+}
+.verify-how {
+  margin-top: 6px;
+}
+.verify-how li {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+}
+.verify-how b {
+  font-size: 15.5px;
+}
+.verify-how p {
+  margin: 3px 0 0;
+  color: var(--label-2);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.how-ic {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: var(--v-brand);
+  background: color-mix(in srgb, var(--v-brand) 12%, transparent);
+}
+.how-ic svg {
+  width: 20px;
+  height: 20px;
+}
+.verify-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.verify-actions .btn {
+  min-height: 44px;
+}
+.verify-code-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--label-2);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.verify-code-note code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  background: var(--fill-3);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* ---------- Manual entry ---------- */
+.verify-form {
+  margin-top: 20px;
+  text-align: left;
+}
+.verify-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-2);
+  margin: 0 4px 6px;
+}
+.verify-input {
+  display: flex;
+  gap: 8px;
+}
+.verify-input input {
+  flex: 1;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid var(--separator);
+  background: var(--bg);
+  font-size: 16px;
+}
+.verify-input input:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+.verify-input input[aria-invalid="true"] {
+  border-color: var(--red);
+}
+.verify-err {
+  margin: 8px 4px 0;
+  font-size: 14px;
+  color: var(--red-text);
+}
+
+.verify-foot {
+  max-width: 560px;
+  margin: 24px auto 0;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--label-2);
+}
+.verify-foot svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+@keyframes verify-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+}
+@keyframes verify-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .verify-card,
+  .slip-wrap,
+  .verify-seal::after {
+    animation: none;
+  }
+}
+
+/* High contrast / Windows forced colours: keep the slip and verdict legible without tints and masks. */
+@media (forced-colors: active) {
+  .slip {
+    -webkit-mask: none;
+    mask: none;
+    border: 1px solid CanvasText;
+  }
+  .verify-seal {
+    border: 2px solid CanvasText;
+  }
+}
+
+/* A clean printout of the check: verdict and slip only. */
+@media print {
+  .verify-page {
+    background: #fff;
+    padding: 0;
+  }
+  .verify-open,
+  .verify-actions,
+  .verify-how,
+  .skip-link,
+  .verify-match {
+    display: none !important;
+  }
+  .verify-card,
+  .slip-wrap {
+    box-shadow: none;
+    filter: none;
+    animation: none;
+  }
+  .slip {
+    -webkit-mask: none;
+    mask: none;
+    border: 1px dashed #999;
+  }
+}

@@ -1,0 +1,78 @@
+// pOS on Cloudflare Workers: one Worker serves the React PWA (static assets from dist/) and the whole API (/api/*).
+//
+//   npm run cf:setup   creates D1 and the queue below (once) and fills in database_id
+//   npm run deploy     builds, applies D1 migrations, deploys
+//
+// Every binding and setting is explained in docs/configuration.md.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pos-in",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // https://pos.<your-subdomain>.workers.dev. Set to false once a custom domain is attached (see "routes" below).
+  "workers_dev": true,
+  // Off: `wrangler versions upload` would otherwise publish a public URL for every version, and those run on the real
+  // D1. Turn on only if you want per-version previews and accept that.
+  "preview_urls": false,
+
+  // Uploads source maps with each deploy so errors in `npm run cf:tail` and the dashboard show the original lines.
+  "upload_source_maps": true,
+
+  // Logs and traces in the dashboard (Workers → pos → Observability). `npm run cf:tail` streams them live.
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+
+  // The React build. Static files never start the Worker; only /api/* does. Unknown paths get index.html (SPA).
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // D1: every table (worker/db/schema.ts). `npm run cf:setup` replaces the zero id with the real one.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pos-rent",
+      "database_id": "473d7236-ffd9-4449-aee4-bec612725f13",
+      "migrations_dir": "migrations",
+      "migrations_table": "d1_migrations"
+    }
+  ],
+
+  // Photos (maintenance, comments, meter photos) are stored in D1 too (table photo_data).
+
+  // Workers AI: reads electricity/water meter photos. Optional; set METER_AI=off to disable.
+  "ai": { "binding": "AI" },
+
+  // The daily rent cycle fans out one message per workspace, so each one runs and retries on its own.
+  // max_batch_size 1: on the Workers Free plan one invocation may make at most 50 D1 queries, and one workspace's
+  // daily run uses a good share of that. One workspace per invocation keeps every run inside the free limits.
+  "queues": {
+    "producers": [{ "binding": "DAILY_QUEUE", "queue": "pos-rent-daily" }],
+    "consumers": [{ "queue": "pos-rent-daily", "max_batch_size": 1, "max_batch_timeout": 5, "max_retries": 5 }]
+  },
+
+  // 00:30 UTC = 06:00 IST.
+  "triggers": { "crons": ["30 0 * * *"] },
+
+  // Plain-text settings. Secrets (CRON_SECRET, SIGNING_SECRET, VAPID_PRIVATE_KEY) go in with `npm run cf:secret -- NAME`.
+  "vars": {
+    // "closed" stops new owner sign-ups (invited staff and tenants can always join).
+    "SIGNUPS": "open",
+    // "off" hides the meter-photo reader even when the AI binding exists.
+    "METER_AI": "on"
+    // "APP_URL": "https://pos.example.com",          public address used in reset links and push notifications
+    // "EMAIL_FROM": "no-reply@example.com",           with the EMAIL binding below
+    // "METER_AI_MODEL": "@cf/meta/llama-4-scout-17b-16e-instruct"
+  }
+
+  // Optional: "Forgot password?" emails through Cloudflare Email Service (docs/configuration.md#password-reset-email).
+  // ,"send_email": [{ "name": "EMAIL" }]
+
+  // Optional: a custom domain instead of workers.dev (docs/deployment.md#custom-domain).
+  // ,"routes": [{ "pattern": "pos.example.com", "custom_domain": true }]
+}
